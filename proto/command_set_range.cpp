@@ -39,4 +39,39 @@ namespace proto
         response.append("\n");
         return response;
     }
+
+    std::string CommandSetRange::GetRequest()
+    {
+        std::string request = Command::GetRequest();
+        request.append(", ");
+        request.append(PREFIX_RANGE);
+        request.append(std::to_string(range));
+        request.append("\n");
+        return request;
+    }
+
+    Command::Result CommandSetRange::CheckResponse(const std::string &response,
+                                                   int *range)
+    {
+        Result ret = Command::CheckResponseResult(response);
+        if (ret == Result::Ok)
+        {
+            std::string delim = ", ";
+            size_t pos = response.find(delim);
+            if (pos == std::string::npos)
+            {
+                return Result::Fail;
+            }
+            pos += delim.length();
+
+            std::string prefix = PREFIX_RANGE;
+            pos = response.find(prefix, pos);
+            if (pos == std::string::npos)
+            {
+                return Result::Fail;
+            }
+            *range = std::stoi(response.substr(pos + prefix.size()));
+        }
+        return ret;
+    }
 } // namespace proto

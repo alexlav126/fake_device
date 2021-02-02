@@ -21,6 +21,8 @@ namespace proto
         CommandGetStatus(int channel, Callback callback);
         void ProcessCallback() override;
         std::string GetResponse() override;
+        std::string GetRequest() override;
+        Result CheckResponse(const std::string &response, Status *status);
 
     private:
         struct StatusName

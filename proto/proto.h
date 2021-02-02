@@ -27,7 +27,6 @@ namespace proto
         };
         Proto(Callback callback);
         Command *CreateCommand(const std::string &request);
-        static constexpr char PREFIX_CHANNEL[] = "channel";
 
     private:
         static int ExtractInt(const std::string &prefix, const std::string &s);

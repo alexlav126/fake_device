@@ -19,7 +19,8 @@ namespace proto
             return nullptr;
         }
         auto cmd_id = Command::StrToId(items.at(POS_COMMAND_NAME));
-        int channel = ExtractInt(PREFIX_CHANNEL, items.at(POS_CHANNEL));
+        int channel = ExtractInt(Command::PREFIX_CHANNEL,
+                                 items.at(POS_CHANNEL));
 
         switch (cmd_id)
         {

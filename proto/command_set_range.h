@@ -12,10 +12,12 @@ namespace proto
         using Callback = bool (*)(int channel,
                                   int input_range,
                                   int *output_range);
-        CommandSetRange(int channel, int range, Callback callback);
+        CommandSetRange(int channel, int range, Callback callback = nullptr);
         static constexpr char PREFIX_RANGE[] = "range";
         void ProcessCallback() override;
         std::string GetResponse() override;
+        std::string GetRequest() override;
+        Result CheckResponse(const std::string &response, int *range);
 
     private:
         Callback callback;

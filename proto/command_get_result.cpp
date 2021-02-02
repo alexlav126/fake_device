@@ -31,4 +31,27 @@ namespace proto
         response.append("\n");
         return response;
     }
+
+    std::string CommandGetResult::GetRequest()
+    {
+        return Command::GetRequest().append("\n");
+    }
+
+    Command::Result CommandGetResult::CheckResponse(const std::string &response,
+                                                    float *result)
+    {
+        Result ret = Command::CheckResponseResult(response);
+        if (ret == Result::Ok)
+        {
+            std::string delim = ", ";
+            size_t pos = response.find(delim);
+            if (pos == std::string::npos)
+            {
+                return Result::Fail;
+            }
+            pos += delim.length();
+            *result = strtof(response.c_str() + pos, nullptr);
+        }
+        return ret;
+    }
 } // namespace proto

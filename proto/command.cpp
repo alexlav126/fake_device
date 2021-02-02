@@ -16,7 +16,6 @@ namespace proto
     std::string Command::GetResponse()
     {
         std::string response;
-
         if (response_result == Result::Ok)
         {
             response = "ok";
@@ -26,6 +25,28 @@ namespace proto
             response = "fail";
         }
         return response;
+    }
+
+    Command::Result Command::CheckResponseResult(const std::string &response)
+    {
+        size_t pos = response.find("ok");
+        if (pos == std::string::npos)
+        {
+            return Result::Fail;
+        }
+        else
+        {
+            return Result::Ok;
+        }
+    }
+
+    std::string Command::GetRequest()
+    {
+        std::string request = IdToStr(id);
+        request.append(" ");
+        request.append(PREFIX_CHANNEL);
+        request.append(std::to_string(channel));
+        return request;
     }
 
     std::string Command::IdToStr(CommandId id)

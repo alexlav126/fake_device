@@ -20,8 +20,12 @@ namespace proto
         CommandId GetId() const;
         virtual void ProcessCallback() = 0;
         virtual std::string GetResponse();
+        virtual std::string GetRequest();
+        Result CheckResponseResult(const std::string &response);
         static std::string IdToStr(CommandId id);
         static CommandId StrToId(std::string id);
+
+        static constexpr char PREFIX_CHANNEL[] = "channel";
 
     protected:
         CommandId id;

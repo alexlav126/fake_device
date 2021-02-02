@@ -13,7 +13,7 @@
 #include <iostream>
 
 Server *server;
-const int NUM_CHANNELS = 1;
+const int NUM_CHANNELS = 2;
 MeasChannel *meas_channel[NUM_CHANNELS];
 
 inline static bool IsChannelValid(int channel)

@@ -26,4 +26,14 @@ namespace proto
         response.append("\n");
         return response;
     }
+
+    std::string CommandStartMeasure::GetRequest()
+    {
+        return Command::GetRequest().append("\n");
+    }
+
+    Command::Result CommandStartMeasure::CheckResponse(const std::string &response)
+    {
+        return Command::CheckResponseResult(response);
+    }
 } // namespace proto
